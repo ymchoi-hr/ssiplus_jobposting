@@ -179,24 +179,34 @@
     margin-top: 6px;
   }
 
-  /* 유튜브 배너 */
-  .youtube-banner {
-    margin-top:24px;
-    text-align:center;
-  }
-  .youtube-banner a {
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-size:13px;
-    font-weight:700;
-    color:#fff;
-    background:#FF0000;
-    padding:10px 20px;
-    border-radius:20px;
-    text-decoration:none;
-  }
-  .youtube-banner a:hover { opacity:.88; }
+/* 채널 배너 (유튜브 + 블로그) */
+.channel-banner {
+  margin-top:24px;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.channel-banner a {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:700;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:20px;
+  text-decoration:none;
+}
+.channel-banner .btn-youtube {
+  background:#FF0000;
+}
+.channel-banner .btn-blog {
+  background:#03C75A;
+}
+.channel-banner a:hover { opacity:.88; }
+
 
   @media (max-width:600px){
     .header .pretitle, .header .maintitle, .header .subtitle{ font-size:24px; }
@@ -340,12 +350,16 @@
 <li><b>채용 문의처 : </b> 상상인플러스 인사팀 · recruit@sangsanginplus.com</li>
         </ul>
 
-     <!-- 유튜브 배너 -->
-        <div class="youtube-banner">
-          <a href="https://www.youtube.com/@sangsangin/playlists" target="_blank" rel="noopener">
-            ▶ 상상인그룹 유튜브에서 더 많은 이야기 보기
-          </a>
-        </div>
+<!-- 유튜브 배너 -->
+<div class="channel-banner">
+  <a href="https://www.youtube.com/@sangsangin/playlists" target="_blank" rel="noopener" class="btn-youtube">
+    ▶ 상상인그룹 유튜브 보러가기
+  </a>
+  <a href="https://blog.naver.com/sangsanginlove" target="_blank" rel="noopener" class="btn-blog">
+    📝 상상인그룹 블로그 보러가기
+  </a>
+</div>
+
 
       </div>  <!-- notice-contact 닫기 -->
     </div>    <!-- section(03. 전형절차) 닫기 -->
