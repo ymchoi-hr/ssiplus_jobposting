@@ -4,91 +4,139 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상상인플러스 채용공고 와이어프레임</title>
+
+<!-- Pretendard 웹폰트 -->
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+
 <style>
   :root {
-    --navy:#0a3d62; --teal:#10ac84; --teal-light:#e8f8f5;
+    --teal: rgb(0,191,182);
+    --teal-dark: rgb(0,160,152);
+    --teal-light: rgba(0,191,182,.10);
+    --teal-lighter: rgba(0,191,182,.06);
+    --teal-border: rgba(0,191,182,.4);
+    --navy: rgb(39,54,70);
     --gray-bg:#f8f9fa; --gray-text:#777; --border:#e5e7eb;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Pretendard','Noto Sans KR',sans-serif; background:#eee; color:#333; line-height:1.6; }
-  .poster { max-width:720px; margin:30px auto; background:#fff; box-shadow:0 4px 20px rgba(0,0,0,.08); overflow:hidden; }
-
-  /* 헤더 : 실사 간판 사진 배경 자리 */
-  .header {
-    position:relative; min-height:340px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    color:#fff; padding:40px 24px;
-    background: linear-gradient(rgba(10,40,60,.35), rgba(10,40,60,.75)), #12395c;
-    /* 실제 작업 시 background에 url('실사_사인보드.jpg') 추가 후 center/cover 처리 */
+  body {
+    font-family:'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+      system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+      'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background:#eee; color:#333; line-height:1.65;
   }
-  .header .pretitle { font-size:15px; opacity:.85; letter-spacing:.05em; margin-bottom:8px; } /* 회사명 - 작게 */
-  .header .maintitle { font-size:34px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px; } /* 직무 - 가장 크게 */
-  .header .subtitle { font-size:17px; font-weight:500; opacity:.9; } /* 신입/경력 - 중간 */
-  .header .photo-note { margin-top:20px; font-size:11px; padding:6px 14px; border:1px dashed rgba(255,255,255,.5); border-radius:20px; opacity:.7; }
+  .poster {
+    max-width:720px; margin:30px auto; background:#fff;
+    box-shadow:0 4px 20px rgba(0,0,0,.08); overflow:hidden;
+    position:relative;
+  }
 
-  /* CI 띠지 */
-  .ci-band { background:var(--gray-bg); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-    padding:12px 20px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
-  .ci-chip { font-size:11px; font-weight:600; padding:5px 14px; border-radius:20px; background:#eef2f5; color:#666; border:1px solid #dde3e8; }
-  .ci-chip.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+  /* 배경 장식 : 아주 옅은 teal 원형 텍스처 */
+  .poster::before, .poster::after {
+    content:''; position:absolute; border-radius:50%; z-index:0; pointer-events:none;
+    background: radial-gradient(circle, var(--teal-light), transparent 70%);
+  }
+  .poster::before { width:280px; height:280px; top:340px; right:-90px; }
+  .poster::after  { width:220px; height:220px; bottom:60px; left:-70px; }
+  .header, .ci-band, .body { position:relative; z-index:1; }
+
+  /* 헤더 : 상상인플러스 사인보드 실사 사진 + teal 단일 톤 */
+.header {
+    position:relative; min-height:240px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    padding:40px 24px;
+    background-color: #f1f2f4;  /* 연한 그레이 */
+}
+  /* 헤더 3줄 : 효과 없이 순수 teal 컬러 */
+  .header .pretitle,
+  .header .maintitle,
+  .header .subtitle {
+    font-size:30px; font-weight:700; letter-spacing:-0.3px; line-height:1.35;
+    color: var(--teal);
+  }
+  /* 안내 배지 : 연한 회색 */
+  .header .photo-tip {
+    margin-top:16px; font-size:12px; font-weight:500;
+    padding:6px 16px; border:1px solid #e2e4e7; border-radius:20px;
+    background:#f4f5f6; color:#888;
+  }
+
+  /* CI 띠지 : teal 배경으로 통일 */
+  .ci-band {
+    background:var(--teal);
+    padding:12px 20px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+  }
+  .ci-chip {
+    font-size:12px; font-weight:600; padding:5px 14px; border-radius:20px;
+    background:rgba(255,255,255,.18); color:#fff;
+    border:1px solid rgba(255,255,255,.35);
+  }
 
   .body { padding:36px 30px 40px; }
 
-  /* 회사소개 : 본문 첫 시작점 */
-  .intro { text-align:center; font-size:14.5px; color:#444; margin-bottom:44px; word-break:keep-all; }
-  .intro b { color:var(--navy); }
+  /* 회사소개 */
+  .intro { text-align:center; font-size:16.5px; color:#444; margin-bottom:44px; word-break:keep-all; }
+  .intro b { color:var(--teal-dark); }
 
   .section { margin-bottom:44px; }
-  .section-head { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
-  .section-head .num { width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff;
-    font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
-  .section-head h2 { font-size:17px; font-weight:800; color:var(--navy); }
-  .gomjirak-tag { font-size:11px; color:#b5651d; background:#fff3e0; border:1px dashed #d99a4e;
-    border-radius:20px; padding:3px 10px; margin-left:auto; }
+  .section-head { display:flex; align-items:center; gap:9px; margin-bottom:18px; }
+  .section-head .num-badge {
+    width:26px; height:26px; border-radius:7px; background:var(--teal); color:#fff;
+    font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .section-head h2 { font-size:20px; font-weight:800; color:var(--navy); display:flex; align-items:center; gap:6px; }
 
   /* 지원부문 카드 */
   .job-cards { display:flex; flex-direction:column; gap:14px; }
   .job-card { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .job-card-head { background:var(--navy); color:#fff; padding:10px 18px; font-size:14px; font-weight:700; }
-  .job-card-body { padding:16px 18px; font-size:13px; }
-  .job-row { display:flex; gap:10px; margin-bottom:10px; }
+  .job-card-head {
+    background:var(--teal); color:#fff; padding:11px 18px; font-size:15.5px; font-weight:700;
+    display:flex; align-items:center; gap:7px;
+  }
+  .job-card-body { padding:18px 18px; font-size:14.5px; }
+  .job-row { display:flex; gap:10px; margin-bottom:11px; }
   .job-row:last-child { margin-bottom:0; }
-  .job-row .label { min-width:56px; font-weight:700; color:var(--teal); font-size:12px; }
+  .job-row .label {
+    min-width:70px; font-weight:700; color:var(--teal-dark); font-size:13.5px;
+    display:flex; align-items:flex-start; gap:4px;
+  }
   .job-row .content { flex:1; color:#333; }
-  .tag { display:inline-block; font-size:11px; background:#eef6f4; color:#0f8c6c;
-    border:1px solid #cbe9e0; border-radius:20px; padding:3px 9px; margin:2px 3px 0 0; }
 
-  /* 근무조건 : 지원부문 표 바로 하단, 급여 없음, 줄간격 축소 */
-  .work-info { margin-top:14px; background:var(--gray-bg); border-radius:8px; padding:10px 16px;
-    display:flex; gap:26px; font-size:12.5px; flex-wrap:wrap; }
+  /* 근무조건 */
+  .work-info { margin-top:14px; background:var(--gray-bg); border-radius:8px; padding:12px 16px;
+    display:flex; gap:26px; font-size:14px; flex-wrap:wrap; }
   .work-info span b { color:var(--navy); margin-right:4px; }
 
   /* 전형절차 */
-  .process-flow { display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .process-flow { display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; margin-bottom:12px; }
   .process-step { text-align:center; }
-  .process-circle { width:52px; height:52px; border-radius:50%; border:2px solid var(--teal);
-    display:flex; align-items:center; justify-content:center; font-size:20px; background:var(--teal-light); margin:0 auto 6px; }
-  .process-label { font-size:12.5px; font-weight:700; color:var(--navy); }
-  .process-arrow { color:#ccc; font-size:18px; margin:0 4px; }
+  .process-circle { width:56px; height:56px; border-radius:50%; border:2px solid var(--teal);
+    display:flex; align-items:center; justify-content:center; font-size:22px; background:var(--teal-light); margin:0 auto 6px; }
+  .process-label { font-size:14px; font-weight:700; color:var(--navy); }
+  .process-connector {
+    width:36px; height:0; border-top:2px dashed var(--teal-border);
+    margin:0 6px; transform:translateY(-16px);
+  }
 
-  .recommend-note { font-size:11.5px; color:#0f8c6c; text-align:center; margin-top:6px; }
-  .recommend-note .tag-label { font-size:10px; font-weight:700; background:#e8f8f5; padding:2px 8px; border-radius:10px; margin-right:6px; }
+  .recommend-note { font-size:13px; color:var(--teal-dark); text-align:center; margin-top:6px; }
 
-  /* 유의사항 + 문의처 : 박스 없이, 전형절차 하단에 이어서 배치 */
+  /* 유의사항 + 문의처 */
   .notice-contact { margin-top:26px; padding-top:18px; border-top:1px dashed var(--border);
-    font-size:11.5px; color:var(--gray-text); line-height:1.8; }
+    font-size:13px; color:var(--gray-text); line-height:1.85; }
   .notice-contact .title { font-weight:700; color:#999; margin-bottom:6px; letter-spacing:.03em; }
   .notice-contact ul { list-style:none; margin-bottom:12px; }
   .notice-contact li { padding-left:12px; position:relative; }
   .notice-contact li::before { content:'·'; position:absolute; left:2px; color:#bbb; }
-  .notice-contact .contact-line b { color:#555; }
-
-  .ci-band-bottom { background:var(--navy); }
-  .ci-band-bottom .ci-chip { background:rgba(255,255,255,.12); color:rgba(255,255,255,.7); border-color:rgba(255,255,255,.2); }
-  .ci-band-bottom .ci-chip.active { background:#fff; color:var(--navy); border-color:#fff; }
+  .notice-contact .contact-line b { color:var(--navy); }
+.notice-contact .contact-line {
+    text-align: center;
+    margin-top: 8px;
+}
 
   @media (max-width:600px){
-    .header .maintitle{ font-size:26px; }
+    .header .pretitle, .header .maintitle, .header .subtitle{ font-size:24px; }
     .work-info{ flex-direction:column; gap:6px; }
   }
 </style>
@@ -97,105 +145,103 @@
 
 <div class="poster">
 
-  <!-- 헤더 : 실사 간판 사진 (배경 자리) -->
+  <!-- 헤더 -->
   <header class="header">
     <div class="pretitle">상상인플러스</div>
     <div class="maintitle">전략기획 · 고객지원</div>
     <div class="subtitle">신입 및 경력 채용</div>
-    <div class="photo-note">📷 실제 작업 시 상상인플러스 사인보드 실사 사진으로 배경 교체</div>
+    <div class="photo-tip">배경으로 상상인플러스 사인보드 사진 활용 추천</div>
   </header>
 
   <!-- 상단 계열사 CI 띠지 -->
   <div class="ci-band">
     <span class="ci-chip">상상인</span>
-    <span class="ci-chip active">상상인플러스</span>
+    <span class="ci-chip">상상인플러스</span>
     <span class="ci-chip">상상인저축은행</span>
     <span class="ci-chip">상상인증권</span>
     <span class="ci-chip">상상인플러스저축은행</span>
-    <!-- 시너지 그룹은 차후 논의 대상이므로 이번엔 제외 -->
   </div>
 
   <div class="body">
 
-    <!-- 회사소개 (본문 첫 시작점, 3~5줄) -->
+    <!-- 회사소개 -->
     <p class="intro">
       상상인플러스는 [사업영역/핵심서비스]를 통해 [추구 가치]를 실현해 나가는 상상인그룹 계열사입니다.<br>
       빠르게 변화하는 환경 속에서도 <b>도전·연결·존중</b>의 가치를 바탕으로,<br>
       함께 성장할 수 있는 동료를 찾고 있습니다.
     </p>
 
-    <!-- 01. 지원부문 (기존 01 지원자격 삭제, 이 섹션이 01로 승격) -->
+    <!-- 01. 지원부문 -->
     <div class="section">
       <div class="section-head">
-        <span class="num">01</span>
-        <h2>지원부문</h2>
-        <span class="gomjirak-tag">🐻 곰지락 포인트 삽입 위치</span>
+        <span class="num-badge">01</span>
+        <h2>지원부문 🐻</h2>
       </div>
 
       <div class="job-cards">
         <div class="job-card">
-          <div class="job-card-head">전략 / 기획</div>
+          <div class="job-card-head">📊 전략/기획</div>
           <div class="job-card-body">
-            <div class="job-row"><div class="label">담당업무</div><div class="content">
-              사업 전략 수립 및 실행 지원 / 신규 서비스 기획 및 타당성 검토 / 경영 데이터 분석 및 보고
+            <div class="job-row"><div class="label">📌 담당업무</div><div class="content">
+              스탁론 상품 상담/실행/사후관리 운영 및 관리<br>사업 성장 및 경쟁력 강화를 위한 전략/기획 업무<br>제휴사 협업(여신금융기관 및 증권회사)
             </div></div>
-            <div class="job-row"><div class="label">지원자격</div><div class="content">
+            <div class="job-row"><div class="label">🎓 지원자격</div><div class="content">
               학력 : 대졸 이상 (졸업예정자 가능)<br>
-              경력 : 신입 ~ 경력 2년 이하
+              경력 : 신입 ~ 경력 2년 이하<br>
+기타 : AI 활용 능력 보유 필수<br>
             </div></div>
-            <div class="job-row"><div class="label">우대사항</div><div class="content">
-              <span class="tag">금융업 유관경험</span><span class="tag">데이터 분석 역량</span>
+            <div class="job-row"><div class="label">⭐ 우대사항</div><div class="content">
+              경제/경영/마케팅 관련 전공자<br>금융기관 업무 경험자<br>증권시장에 대한 높은 이해도 보유자
             </div></div>
           </div>
         </div>
 
         <div class="job-card">
-          <div class="job-card-head">고객지원</div>
+          <div class="job-card-head">🎧 고객지원</div>
           <div class="job-card-body">
-            <div class="job-row"><div class="label">담당업무</div><div class="content">
-              고객 문의/민원 응대 / 상품 안내 및 상담 / CS 데이터 관리 및 품질 개선
+            <div class="job-row"><div class="label">📌 담당업무</div><div class="content">
+              스탁론 고객 원격지원
             </div></div>
-            <div class="job-row"><div class="label">지원자격</div><div class="content">
-              학력 : 대졸 이상 (졸업예정자 가능)<br>
-              경력 : 신입 또는 경력 (경력직은 유관경력 3년 이상)
+            <div class="job-row"><div class="label">🎓 지원자격</div><div class="content">
+              학력 : 무관<br>
+              경력 : 무관<br>
+기본적인 PC 활용 능력 보유자 : 원격지원 도구, 업무 시스템 입력, 문서 작업 등<br>
+원활한 커뮤니케이션 역량 보유자 : 고객 화면을 보며 차분하고 정확하게 안내 가능한 소통 역량<br>
+꼼꼼한 성향 보유자 : 체크리스트 기반으로 꼼꼼하게 기록 및 프로세스 준수 가능한 자
             </div></div>
-            <div class="job-row"><div class="label">우대사항</div><div class="content">
-              <span class="tag">CS 유관경험</span><span class="tag">금융 자격증 보유</span>
+            <div class="job-row"><div class="label">⭐ 우대사항</div><div class="content">
+              스탁론 고객지원 업무 경험자<br>원격제어/화면공유 기반 고객지원 경험자(비대면 설치/인증/계좌 및 서류 프로세스 지원 등)<br>금융(대출/담보) 또는 증권/계좌 관련 고객지원 경험 보유자
             </div></div>
           </div>
         </div>
       </div>
 
-      <!-- 고용형태·근무지 : 지원부문 표 바로 하단, 급여 삭제, 줄간격 축소 -->
       <div class="work-info">
         <span><b>고용형태</b>정규직 (수습 3개월)</span>
         <span><b>근무지</b>서울 강남구 (상상인플러스 본사)</span>
-<span><b>근무시간</b>월~금 09:00~18:00</span>
+        <span><b>근무시간</b>월~금 09:00~18:00</span>
       </div>
     </div>
 
-    <!-- 02. 전형절차 (기존 04 접수기간/제출서류/접수방법 삭제 + 05 전형절차 통합) -->
+    <!-- 02. 전형절차 -->
     <div class="section">
       <div class="section-head">
-        <span class="num">02</span>
-        <h2>전형절차</h2>
-        <span class="gomjirak-tag">🐻 곰지락 포인트 삽입 위치</span>
+        <span class="num-badge">02</span>
+        <h2>전형절차 🐻</h2>
       </div>
 
       <div class="process-flow">
         <div class="process-step"><div class="process-circle">📄</div><div class="process-label">서류전형</div></div>
-        <div class="process-arrow">▶</div>
+        <div class="process-connector"></div>
         <div class="process-step"><div class="process-circle">🗣️</div><div class="process-label">면접전형</div></div>
-        <div class="process-arrow">▶</div>
+        <div class="process-connector"></div>
         <div class="process-step"><div class="process-circle">🎉</div><div class="process-label">최종합격</div></div>
       </div>
 
-      <!-- 권장사항 : 각 전형별 결과 안내 소요기간 -->
       <div class="recommend-note">
-        <span class="tag-label">권장</span>서류 전형은 합격자에 한해 개별 연락 드리며, 면접 전형은 결과와 관계없이 약 10영업일 내에 모두 안내 드립니다.
+        서류 전형은 합격자에 한해 개별 연락 드리며, 면접 전형은 결과와 관계없이 약 10영업일 내에 모두 안내 드립니다.
       </div>
 
-      <!-- 유의사항 (박스 없음, 기존 01 지원자격 문구 이동) + 문의처 (같은 자리에 이어서) -->
       <div class="notice-contact">
         <div class="title">※ 유의사항</div>
         <ul>
@@ -203,8 +249,8 @@
           <li>입사지원 서류 내용이 사실과 다를 경우, 합격 이후라도 채용이 취소될 수 있습니다.</li>
           <li>보훈 및 장애인 등 취업지원대상자는 관련 법령에 따라 우대합니다.</li>
         </ul>
-        <div class="contact-line">
-          <b>채용 문의</b> 상상인플러스 인사팀 · recruit@sangsanginplus.com · 02-000-0000
+        <div class="contact-line"><br>
+          <b>채용 문의</b> 상상인플러스 인사팀 · recruit@sangsanginplus.com
         </div>
       </div>
     </div>
@@ -212,9 +258,9 @@
   </div>
 
   <!-- 하단 계열사 CI 띠지 -->
-  <div class="ci-band ci-band-bottom">
+  <div class="ci-band">
     <span class="ci-chip">상상인</span>
-    <span class="ci-chip active">상상인플러스</span>
+    <span class="ci-chip">상상인플러스</span>
     <span class="ci-chip">상상인저축은행</span>
     <span class="ci-chip">상상인증권</span>
     <span class="ci-chip">상상인플러스저축은행</span>
